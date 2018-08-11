@@ -1,0 +1,11 @@
+#version 330 core
+
+uniform float wallPos;
+
+in vec2 texCoord;
+
+out vec4 color;
+
+void main() {
+    color = vec4(0, 0, 0, 10 - 10 * (texCoord.x + wallPos));
+}

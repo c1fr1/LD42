@@ -12,6 +12,7 @@ public class Player extends Entity {
 	public ArrayList<Projectile> projectiles = new ArrayList<>();
 	private Texture[] animFrames;
 	float energy = 1;
+	float hp = 1;
 	public Player() {
 		position = new Vector2f(0, 25f);
 		animFrames = new Texture[2];
@@ -43,6 +44,13 @@ public class Player extends Entity {
 		velocity.x *= 0.96f;
 		super.updatePosition(time);
 		projectiles(time);
+		player.hp += 0.0005f;
+		if (player.hp > 1) {
+			player.hp = 1;
+		}
+		if (player.position.x < gameView.wallPosition) {
+			player.hp -= 0.002;
+		}
 	}
 	
 	public void projectiles(float time) {
@@ -50,13 +58,20 @@ public class Player extends Entity {
 		float yposEquavalent = window.cursorYFloat * 50f + cameraPos.y;
 		//System.out.println(xposEquivalent);
 		//System.out.println(yposEquavalent + "\n");
+		energy += 0.0025f;
+		if (energy > 1) {
+			energy = 1;
+		}
 		if (window.mouseButtons[GLFW_MOUSE_BUTTON_LEFT] == 1) {
-			Vector2f impulse = new Vector2f(player.position.x - xposEquivalent, player.position.y - yposEquavalent);
-			impulse.normalize();
-			impulse.mul(50f);
-			projectiles.add(new Projectile(position.x, position.y, impulse.x + velocity.x, impulse.y + velocity.y));
-			velocity.y -= impulse.y / 2;
-			velocity.x -= impulse.x;
+			if (energy > 0.3) {
+				energy -= 0.3f;
+				Vector2f impulse = new Vector2f(player.position.x - xposEquivalent, player.position.y - yposEquavalent);
+				impulse.normalize();
+				impulse.mul(50f);
+				projectiles.add(new Projectile(position.x, position.y, impulse.x + velocity.x, impulse.y + velocity.y));
+				velocity.y -= impulse.y / 2;
+				velocity.x -= impulse.x;
+			}
 		}
 		for (int i = 0; i < projectiles.size();++i) {
 			Projectile p = projectiles.get(i);

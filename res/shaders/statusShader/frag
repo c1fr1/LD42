@@ -1,0 +1,17 @@
+#version 330 core
+
+uniform float status;
+uniform sampler2D textureSampler;
+
+in vec2 texCoord;
+
+out vec4 color;
+
+void main() {
+    color = texture(textureSampler, texCoord);
+    if (color.x + color.z - 2 * color.y > 0.9) {
+        if (texCoord.x > status) {
+            color.w = 0;
+        }
+    }
+}
