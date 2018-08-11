@@ -37,6 +37,7 @@ public class EnigWindow {
 	
 	private int width;
 	private int height;
+	private float aspectRatio;
 	
 	public int fps = 60;
 	
@@ -173,6 +174,7 @@ public class EnigWindow {
 		GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		width = vidMode.width();
 		height = vidMode.height();
+		setAspectRatio();
 		
 		id = glfwCreateWindow(width, height, title, glfwGetPrimaryMonitor(), NULL);//creates window
 		
@@ -243,6 +245,7 @@ public class EnigWindow {
 		glfwSetWindowSizeCallback(id, (long window, int w, int h) -> {
 			width = w;
 			height = h;
+			setAspectRatio();
 			glViewport(0, 0, width, height);
 		});
 		
@@ -292,6 +295,7 @@ public class EnigWindow {
 		//GLFWVidMode vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		width = iw;
 		height = ih;
+		setAspectRatio();
 		
 		id = glfwCreateWindow(width, height, title, NULL, NULL);//fullscreen
 		
@@ -510,6 +514,10 @@ public class EnigWindow {
 		}
 	}
 	
+	private void setAspectRatio() {
+		aspectRatio = (float) width / (float) height;
+	}
+	
 	/**
 	 * initializes openGL
 	 */
@@ -639,5 +647,9 @@ public class EnigWindow {
 	 */
 	public int getHeight() {
 		return height;
+	}
+	
+	public float getAspectRatio() {
+		return aspectRatio;
 	}
 }

@@ -10,11 +10,11 @@ import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 public abstract class EnigView {
 	public EnigWindow window;
 	
-	public long loopStartTime;
+	public float loopStartTime;
 	
-	public long deltaTime;
+	public float deltaTime;
 	
-	public long frameStartTime;
+	public float frameStartTime;
 	
 	/**
 	 * creates a new main view
@@ -24,11 +24,11 @@ public abstract class EnigView {
 	}
 	
 	public void runLoop() {
-		loopStartTime = System.nanoTime();
-		frameStartTime = System.nanoTime();
+		loopStartTime = (float) System.nanoTime()/1e9f;
+		frameStartTime = loopStartTime;
 		while (!glfwWindowShouldClose(window.id)) {
 			window.update();
-			long newTime = System.nanoTime();
+			float newTime = (float) System.nanoTime()/1e9f;
 			deltaTime = frameStartTime - newTime;
 			frameStartTime = newTime;
 			if (loop()) {
