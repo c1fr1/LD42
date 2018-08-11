@@ -1,0 +1,15 @@
+#version 330 core
+
+uniform vec2 camPos;
+uniform float aspectRatio;
+
+layout (location = 0) in vec3 vertices;
+layout (location = 1) in vec2 textCoords;
+
+out vec2 texCoord;
+out vec3 vertexPos;
+
+void main() {
+	gl_Position = vec4(vertices.x, vertices.y - camPos.y, vertices.z, 1);
+	texCoord = vec2(textCoords.x * aspectRatio * 2f + camPos.x, textCoords.y);
+}

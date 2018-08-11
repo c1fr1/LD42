@@ -209,7 +209,9 @@ public class EnigWindow {
 		});
 		
 		glfwSetMouseButtonCallback(id, (long window, int button, int action, int mods) -> {
-			mouseButtons[button] = action;
+			if (action >= 0) {
+				mouseButtons[button] = action;
+			}
 		});
 		
 		
@@ -260,7 +262,7 @@ public class EnigWindow {
 		
 		mainWindow = this;
 		
-		runOpeningSequence();
+		//runOpeningSequence();
 	}
 	
 	/**
@@ -330,7 +332,9 @@ public class EnigWindow {
 		});
 		
 		glfwSetMouseButtonCallback(id, (long window, int button, int action, int mods) -> {
-			mouseButtons[button] = action;
+			if (action >= 0) {
+				mouseButtons[button] = action;
+			}
 		});
 		
 		
@@ -380,7 +384,7 @@ public class EnigWindow {
 		
 		mainWindow = this;
 		
-		runOpeningSequence();
+		//runOpeningSequence();
 	}
 	
 	/**
@@ -548,9 +552,14 @@ public class EnigWindow {
 	 */
 	public void update() {
 		sync(fps);
-		for (int i = 0; i < keys.length; i++) {
+		for (int i = 0; i < keys.length; ++i) {
 			if (keys[i] == 1) {
 				++keys[i];
+			}
+		}
+		for (int i = 0; i < mouseButtons.length; ++i) {
+			if (mouseButtons[i] == 1) {
+				++mouseButtons[i];
 			}
 		}
 	}

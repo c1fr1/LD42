@@ -27,7 +27,6 @@ public abstract class EnigView {
 		loopStartTime = (float) System.nanoTime()/1e9f;
 		frameStartTime = loopStartTime;
 		while (!glfwWindowShouldClose(window.id)) {
-			window.update();
 			float newTime = (float) System.nanoTime()/1e9f;
 			deltaTime = frameStartTime - newTime;
 			frameStartTime = newTime;
