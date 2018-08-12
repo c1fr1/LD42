@@ -2,9 +2,11 @@ package game;
 
 import engine.OpenGL.Texture;
 import org.joml.Vector2f;
+import org.lwjgl.system.CallbackI;
 
 import java.util.ArrayList;
 
+import static engine.EnigUtils.clamp;
 import static game.Main.*;
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT;
 
@@ -19,6 +21,16 @@ public class Player extends Entity {
 		animFrames[0] = new Texture("res/player/frame1.png");
 		animFrames[1] = new Texture("res/player/frame2.png");
 	}
+	
+	public void reset() {
+		energy = 1;
+		hp = 1;
+		position.x = 0;
+		position.y = 25f;
+		velocity.x = 0;
+		velocity.y = 0;
+	}
+	
 	public void render(float time) {
 		
 		animFrames[(int) ((time % 0.2f) / 0.1f)].bind();
@@ -29,7 +41,14 @@ public class Player extends Entity {
 	
 	@Override
 	public void updatePosition(float time) {
-		player.position.y *= 0.98;
+		//player.position.y *= 0.98;//dtn
+		if (player.position.y > 50) {
+			player.velocity.y -= 50f * time;
+		}
+		if (player.position.y > 80) {
+			player.velocity.y = 0;
+			player.position.y = 80;
+		}
 		if (UserControls.up(window)) {
 			velocity.y += 80f * time;
 		}
@@ -42,16 +61,35 @@ public class Player extends Entity {
 		if (UserControls.right(window)) {
 			velocity.x += 120f * time;
 		}
-		velocity.x *= 0.96f;
+		if (velocity.x > 10) {
+			velocity.x -= 10 * time;
+		}
+		if (velocity.y < 10) {
+			velocity.y += 10 * -time;
+		}
+		if (player.velocity.x > 0) {
+			player.velocity.x -= 20 * -time;
+			if (player.velocity.x < 0) {
+				player.velocity.x = 0;
+			}
+		}
+		if (player.velocity.x < 0) {
+			player.velocity.x += 20 * -time;
+			if (player.velocity.x > 0) {
+				player.velocity.x = 0;
+			}
+		}
+		player.velocity.x = clamp(player.velocity.x, -50, 50);
+		//velocity.x *= 0.96f;//dtn
 		super.updatePosition(time);
 		projectiles(time);
-		player.hp += 0.0005f;
+		player.hp += 0.05f * -time;
 		if (player.hp > 1) {
 			player.hp = 1;
 		}
 		if (player.position.x < gameView.wallPosition) {
-			player.hp -= 0.002;
-			player.energy += 0.004;
+			player.hp -= 0.2 * -time;
+			player.energy += 0.4 * -time;
 		}
 	}
 	
@@ -60,7 +98,7 @@ public class Player extends Entity {
 		float yposEquavalent = window.cursorYFloat * 50f + cameraPos.y;
 		//System.out.println(xposEquivalent);
 		//System.out.println(yposEquavalent + "\n");
-		energy += 0.0025f;
+		energy += 0.25f * -time;
 		if (energy > 1) {
 			energy = 1;
 		}

@@ -39,7 +39,7 @@ public class EnigWindow {
 	private int height;
 	private float aspectRatio;
 	
-	public int fps = 60;
+	public int fps = 144;
 	
 	public float cursorXFloat;
 	public float cursorYFloat;
@@ -161,7 +161,7 @@ public class EnigWindow {
 		
 		// Configure GLFW
 		glfwDefaultWindowHints(); // optional, the current window hints are already the default
-		glfwWindowHint(GLFW_SAMPLES, 8);
+		glfwWindowHint(GLFW_SAMPLES, 4);
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 		glfwWindowHint(GLFW_DECORATED, decorated ? 1 : 0);
@@ -284,7 +284,7 @@ public class EnigWindow {
 		
 		// Configure GLFW
 		glfwDefaultWindowHints(); // optional, the current window hints are already the default
-		glfwWindowHint(GLFW_SAMPLES, 8);
+		glfwWindowHint(GLFW_SAMPLES, 4);
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 		glfwWindowHint(GLFW_DECORATED, decorated ? 1 : 0);

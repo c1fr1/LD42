@@ -20,6 +20,10 @@ public class Button {
 		this.height = height;
 	}
 	
+	public void reset() {
+		hoverTimer = 0;
+	}
+	
 	public static void setStatics() {
 		shader = new ShaderProgram("buttonShader");
 		vao = new VAO(-0.5f, -0.125f, 1, 0.25f);

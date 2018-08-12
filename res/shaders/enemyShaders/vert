@@ -6,8 +6,10 @@ layout (location = 0) in vec3 vertices;
 layout (location = 1) in vec2 textCoords;
 
 out vec2 texCoord;
+out vec2 pos;
 
 void main() {
-	gl_Position = matrix * vec4(vertices, 1);
+	gl_Position = matrix * vec4(10 * vertices, 1);
 	texCoord = textCoords;
+	pos = vertices.xy * 10;
 }

@@ -6,6 +6,8 @@ import engine.OpenAL.SoundSource;
 public class Audio {
 	private Sound song;
 	private Sound blast;
+	private Sound endingChime;
+	private Sound menuMusic;
 	private SoundSource player;
 	private SoundSource[] blastSources = new SoundSource[5];
 	private Sound[] contacts;
@@ -17,13 +19,16 @@ public class Audio {
 		}
 		song = new Sound("res/sfx/song.wav");
 		blast = new Sound("res/sfx/blast.wav");
+		endingChime = new Sound("res/sfx/end.wav");
+		menuMusic = new Sound("res/sfx/menu.wav");
 		player = new SoundSource();
 		for (int i = 0; i < 5;++i) {
 			blastSources[i] = new SoundSource();
 		}
-		player.setLoop();
 	}
 	public void startSong() {
+		player.stop();
+		player.setLoop();
 		player.playSound(song);
 	}
 	public void stopPlaying() {
@@ -45,5 +50,15 @@ public class Audio {
 		if (blastIndex == 5) {
 			blastIndex = 0;
 		}
+	}
+	public void playEnd() {
+		player.stop();
+		player.setNoLoop();
+		player.playSound(endingChime);
+	}
+	public void playMenu() {
+		player.stop();
+		player.setLoop();
+		player.playSound(menuMusic);
 	}
 }

@@ -1,6 +1,6 @@
 #version 330 core
 
-uniform mat4 matrix;
+uniform mat4 transformation;
 
 layout (location = 0) in vec3 vertices;
 layout (location = 1) in vec2 textCoords;
@@ -8,6 +8,6 @@ layout (location = 1) in vec2 textCoords;
 out vec2 texCoord;
 
 void main() {
-	gl_Position = matrix * vec4(vertices, 1);
+	gl_Position = transformation * vec4(vertices, 1);
 	texCoord = textCoords;
 }
