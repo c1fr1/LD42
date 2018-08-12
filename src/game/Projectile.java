@@ -4,6 +4,7 @@ import engine.OpenGL.Texture;
 import org.joml.Vector2f;
 
 import static engine.OpenGL.EnigWindow.checkGLError;
+import static game.Main.audio;
 
 public class Projectile extends Entity {
 	public static Texture projectileTexture;
@@ -12,6 +13,7 @@ public class Projectile extends Entity {
 		position.y = y;
 		velocity.x = xvel;
 		velocity.y = yvel;
+		audio.playBlast();
 	}
 	
 	@Override

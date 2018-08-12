@@ -29,6 +29,7 @@ public class Player extends Entity {
 	
 	@Override
 	public void updatePosition(float time) {
+		player.position.y *= 0.98;
 		if (UserControls.up(window)) {
 			velocity.y += 80f * time;
 		}
@@ -50,6 +51,7 @@ public class Player extends Entity {
 		}
 		if (player.position.x < gameView.wallPosition) {
 			player.hp -= 0.002;
+			player.energy += 0.004;
 		}
 	}
 	
@@ -67,10 +69,10 @@ public class Player extends Entity {
 				energy -= 0.3f;
 				Vector2f impulse = new Vector2f(player.position.x - xposEquivalent, player.position.y - yposEquavalent);
 				impulse.normalize();
-				impulse.mul(50f);
+				impulse.mul(100f);
 				projectiles.add(new Projectile(position.x, position.y, impulse.x + velocity.x, impulse.y + velocity.y));
-				velocity.y -= impulse.y / 2;
-				velocity.x -= impulse.x;
+				velocity.y -= impulse.y / 4;
+				velocity.x -= impulse.x / 2;
 			}
 		}
 		for (int i = 0; i < projectiles.size();++i) {

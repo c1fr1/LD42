@@ -13,7 +13,7 @@ public class Main {
 	public static Player player;
 	public static Vector2f cameraPos = new Vector2f();
 	public static VAO screenVAO;
-	public static Audio song;
+	public static Audio audio;
 	private static Matrix4f perspectiveMatrix;
 	
 	public static void main(String[] args) {
@@ -26,7 +26,7 @@ public class Main {
 		Entity.entityProgram = new ShaderProgram("entityShaders");
 		Entity.entityVAO = new VAO(-2.5f, -2.5f, 5f, 5f);
 		player = new Player();
-		song = new Audio();
+		audio = new Audio();
 		
 		Projectile.projectileTexture = new Texture("res/projectile.png");
 		

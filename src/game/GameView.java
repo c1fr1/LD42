@@ -18,7 +18,6 @@ public class GameView extends EnigView {
 	
 	private Texture floorTexture;
 	private Texture skyTexture;
-	
 	private Texture hpTexture;
 	private Texture mpTexture;
 	
@@ -46,7 +45,7 @@ public class GameView extends EnigView {
 		hpVAO = new VAO(-1, 0.75f, 1/window.getAspectRatio(), 0.25f);
 		mpVAO = new VAO(1 - 1/window.getAspectRatio(), 0.75f, 1/window.getAspectRatio(), 0.25f);
 		
-		song.startPlaying();
+		audio.startSong();
 	}
 	
 	
@@ -55,12 +54,11 @@ public class GameView extends EnigView {
 		//game here
 		FBO.prepareDefaultRender();
 		
-		
 		updateCamera();
 		
 		renderBackground();
 		
-		updateEnemies();
+		updateEntities();
 		
 		renderScene();
 		
@@ -100,9 +98,12 @@ public class GameView extends EnigView {
 		screenVAO.fullRender();
 	}
 	
-	public void updateEnemies() {
-		if (Math.random() < 0.005) {
-			enemies.add(new Enemy());
+	public void updateEntities() {
+		if (enemies.size() < 10) {
+			double thresh = 0.0008 * (10-(double)enemies.size());
+			if (Math.random() < thresh) {
+				enemies.add(new Enemy());
+			}
 		}
 		Entity.entityVAO.prepareRender();
 		Entity.entityProgram.enable();
@@ -121,7 +122,7 @@ public class GameView extends EnigView {
 			}
 			if (e.position.x + 5 < wallPosition) {
 				if (!e.tagged) {
-					wallVelocity += 0.5f;
+					wallVelocity += 1.25f;
 				}
 				enemies.remove(i);
 			}
@@ -138,7 +139,7 @@ public class GameView extends EnigView {
 		floorVAO.fullRender();
 		
 		wallPosition += wallVelocity;
-		wallVelocity += (0.65f - wallVelocity) * 0.01f;
+		wallVelocity += (0.675f - wallVelocity) * 0.03f;
 		
 		wallShader.enable();
 		wallShader.shaders[0].uniforms[0].set(cameraPos);

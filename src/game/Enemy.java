@@ -1,6 +1,7 @@
 package game;
 
 import engine.OpenGL.Texture;
+import org.joml.Vector4f;
 
 import static game.Main.*;
 
@@ -31,6 +32,7 @@ public class Enemy extends Entity {
 			float xdist = proj.position.x - position.x;
 			float ydist = proj.position.y - position.y;
 			if (xdist * xdist + ydist * ydist < 20) {
+				audio.playContact();
 				tagged = true;
 				velocity.add(proj.velocity);
 				player.projectiles.remove(i);
