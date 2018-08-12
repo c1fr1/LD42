@@ -24,8 +24,12 @@ public class GameView extends EnigView {
 	private VAO hpVAO;
 	private VAO mpVAO;
 	
+	private FBO mainFrameBuffer;
+	
 	private float wallVelocity = 0.7f;
 	public float wallPosition = -200f;
+	
+	private PauseView pauseView;
 	
 	public ArrayList<Enemy> enemies = new ArrayList<>();
 	
@@ -44,6 +48,8 @@ public class GameView extends EnigView {
 		
 		hpVAO = new VAO(-1, 0.75f, 1/window.getAspectRatio(), 0.25f);
 		mpVAO = new VAO(1 - 1/window.getAspectRatio(), 0.75f, 1/window.getAspectRatio(), 0.25f);
+		
+		pauseView = new PauseView();
 		
 		audio.startSong();
 	}
@@ -65,7 +71,8 @@ public class GameView extends EnigView {
 		renderStatus();
 		
 		if (UserControls.quit(window)) {
-			return true;
+			pauseView.runLoop();
+			frameStartTime = System.nanoTime()/1e9f;
 		}
 		return false;
 	}

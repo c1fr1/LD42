@@ -1,0 +1,19 @@
+#version 330 core
+
+uniform float wallPos;
+uniform float time;
+uniform sampler2D textureSampler;
+
+in vec2 texCoord;
+
+out vec4 color;
+
+void main() {
+    color = texture(textureSampler, texCoord);
+    if (color.y > 0.9) {
+        color.y += 10*texCoord.x - wallPos;
+    }else if (color.z > 0) {
+        float brightness = 0.5 + time;
+        color = vec4(brightness, brightness, brightness, 1);
+    }
+}

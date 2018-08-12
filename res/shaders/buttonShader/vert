@@ -1,0 +1,14 @@
+#version 330 core
+
+uniform float height;
+uniform float aspectRatio;
+
+layout (location = 0) in vec3 vertices;
+layout (location = 1) in vec2 textCoords;
+
+out vec2 texCoord;
+
+void main() {
+	gl_Position = vec4(vertices.x * aspectRatio, vertices.y + height, vertices.z, 1);
+	texCoord = textCoords;
+}

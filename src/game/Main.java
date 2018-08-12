@@ -22,6 +22,7 @@ public class Main {
 		glDisable(GL_DEPTH_TEST);
 		perspectiveMatrix = new Matrix4f().ortho(-50f*window.getAspectRatio(), 50f*window.getAspectRatio(), -50f, 50f, 0, 1);
 		
+		Button.setStatics();
 		Enemy.setFrames();
 		Entity.entityProgram = new ShaderProgram("entityShaders");
 		Entity.entityVAO = new VAO(-2.5f, -2.5f, 5f, 5f);
