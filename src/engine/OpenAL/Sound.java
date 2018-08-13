@@ -32,7 +32,8 @@ public class Sound {
 		try {
 			id = alGenBuffers();
 			soundIDs.add(id);
-			InputStream url = new FileInputStream(new File(file));//Thread.currentThread().getContextClassLoader().getResource(file);
+			
+			InputStream url = getClass().getClassLoader().getResourceAsStream(file);
 			AudioInputStream ais = new WaveFileReader().getAudioInputStream(url);
 			AudioFormat format = ais.getFormat();
 			int channels = 0;

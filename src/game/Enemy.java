@@ -16,7 +16,7 @@ public class Enemy extends Entity {
 	private float animFrameOffset;
 	public Enemy() {
 		position.x = player.position.x + 100;
-		position.y = (float) Math.random() * 50f;
+		position.y = (float) Math.random() * 80f;
 		velocity.x = 20;
 		animFrameOffset = (float) Math.random();
 	}

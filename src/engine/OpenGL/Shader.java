@@ -1,9 +1,6 @@
 package engine.OpenGL;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL20.*;
@@ -26,7 +23,7 @@ public class Shader {
 		String shaderSource = "";
 		
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(new File(path)));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(path)/*path*/));
 			String line;
 			ArrayList<Attribute> tempattriblist = new ArrayList<>();
 			ArrayList<Uniform> tempuniflist = new ArrayList<>();

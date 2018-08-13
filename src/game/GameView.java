@@ -4,10 +4,13 @@ import engine.EnigView;
 import engine.OpenGL.*;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
 import static game.Main.*;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 
 public class GameView extends EnigView {
 	private VAO floorVAO;
@@ -46,6 +49,12 @@ public class GameView extends EnigView {
 		skyTexture = new Texture("res/sky.png");
 		hpTexture = new Texture("res/statusBars/hpBar.png");
 		mpTexture = new Texture("res/statusBars/mpBar.png");
+		hpTexture.bind();
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		mpTexture.bind();
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		
 		hpVAO = new VAO(-1, 0.75f, 1/window.getAspectRatio(), 0.25f);
 		mpVAO = new VAO(1 - 1/window.getAspectRatio(), 0.75f, 1/window.getAspectRatio(), 0.25f);
@@ -64,8 +73,6 @@ public class GameView extends EnigView {
 	public boolean loop() {
 		//game here
 		mainFrameBuffer.prepareForTexture();
-		System.out.println("palyerx: " + player.position.x);
-		System.out.println("wallX: " + wallPosition);
 		if (player.hp > 0) {
 			updateCamera();
 		}else {

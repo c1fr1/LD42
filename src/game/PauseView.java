@@ -5,6 +5,7 @@ import engine.OpenGL.FBO;
 import engine.OpenGL.Texture;
 
 import static game.Main.*;
+import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT;
 
 public class PauseView extends EnigView {
 	public Button continueButton;
@@ -31,10 +32,12 @@ public class PauseView extends EnigView {
 		backgroundTexture.bind();
 		screenVAO.fullRender();
 		if (continueButton.render(frameStartTime)) {
+			window.keys[GLFW_MOUSE_BUTTON_LEFT] = 2;
 			return true;
 		}
 		if (quitButton.render(frameStartTime)) {
 			buttonPressed = 1;
+			window.keys[GLFW_MOUSE_BUTTON_LEFT] = 2;
 			return true;
 		}
 		for (int i:UserControls.quit) {

@@ -37,7 +37,8 @@ public class Texture {
 	 */
 	public Texture(String path) {
 		try {
-			BufferedImage bi = ImageIO.read(new File(path));
+			
+			BufferedImage bi = ImageIO.read(getClass().getClassLoader().getResourceAsStream(path));
 			width = bi.getWidth();
 			height = bi.getHeight();
 			int[] pixels = bi.getRGB(0, 0, width, height, null, 0, width);
