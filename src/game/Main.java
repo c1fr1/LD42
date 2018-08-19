@@ -32,7 +32,8 @@ public class Main {
 		if (args.length == 0) {
 			String os = System.getProperty("os.name");
 			System.out.println("Operating System: " + os);
-			if (!os.startsWith("Windows")) {
+			System.out.println("in order to get a stack trace, run with\njava -jar TheLastWall.jar noReRun\nif you are on mac, you will need to run it with the additional argument\n-XstartOnFirstThread");
+			if (os.indexOf("mac") >= 0) {
 				try {
 					Runtime.getRuntime().exec(new String[]{"java", "-XstartOnFirstThread", "-jar", "TheLastWall.jar", "noReRun"});
 				} catch (IOException e) {

@@ -6,6 +6,7 @@ import org.joml.Vector3f;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,10 @@ public class OBJInformation {//based off of https://github.com/MCRewind/3DGame/b
 	public float[] textCoords;
 	public float[] normals;
 	public int[] indexArray;
-	public static OBJInformation getInfo(String fileName) {
+	public OBJInformation() {
+	
+	}
+	public OBJInformation getInfo(String fileName) {
 		List<String> lines = null;
 		try {
 			lines = readAllLines(fileName);
@@ -155,7 +159,6 @@ public class OBJInformation {//based off of https://github.com/MCRewind/3DGame/b
 			}
 			return idxGroup;
 		}
-		
 		public OBJInformation.IdxGroup[] getFaceVertexIndices() {
 			return idxGroups;
 		}
@@ -179,9 +182,9 @@ public class OBJInformation {//based off of https://github.com/MCRewind/3DGame/b
 			idxVecNormal = NO_VALUE;
 		}
 	}
-	public static List<String> readAllLines(String fileName) throws Exception {
+	public List<String> readAllLines(String fileName) throws Exception {
 		List<String> list = new ArrayList<>();
-		try (BufferedReader br = new BufferedReader(new FileReader(new File(fileName)))) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(fileName)))) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				list.add(line);

@@ -162,7 +162,7 @@ public class VAO {
 	 * @param path path to the file
 	 */
 	public VAO(String path) {
-		OBJInformation info = OBJInformation.getInfo(path);
+		OBJInformation info = new OBJInformation().getInfo(path);
 		vbos = new VBO[1];
 		id = glGenVertexArrays();
 		vaoIDs.add(id);
